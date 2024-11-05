@@ -9,7 +9,7 @@ function loadChannels() {
         const li = document.createElement("li");
         li.textContent = channel;
         const removeBtn = document.createElement("button");
-        removeBtn.textContent = "Xóa";
+        removeBtn.textContent = "remove";
         removeBtn.onclick = () => removeChannel(channel);
         li.appendChild(removeBtn);
         channelList.appendChild(li);

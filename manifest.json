@@ -2,14 +2,14 @@
   "manifest_version": 3,
   "name": "YouTube Channel Filter",
   "version": "1.1",
-  "description": "Chặn các video YouTube không thuộc danh sách kênh được phép",
+  "description": "Block unauthorized videos from the channel",
   "permissions": ["scripting", "storage", "activeTab"],
   "icons": {
     "128": "icon.png"
   },
   "content_scripts": [
     {
-      "matches": ["*://www.youtube.com/watch*"],
+      "matches": ["*://www.youtube.com/*"],
       "js": ["content.js"]
     }
   ],
