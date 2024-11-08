@@ -33,6 +33,17 @@ function checkChannelLogic() {
   checkChannelCount++; // Tăng biến đếm mỗi khi checkChannel được gọi
   console.log(`Lần gọi checkChannel thứ ${checkChannelCount}`);
 
+  // Lấy channelId từ URL hiện tại
+  const currentURL = new URL(location.href);
+  const channelId = currentURL.pathname.split("/")[1];
+
+  // Kiểm tra nếu channelId có trong allowedChannels
+  if (allowedChannels.includes(channelId)) {
+    console.log(`Channel ${channelId} is allowed, exiting checkChannelLogic.`);
+    return; // Nếu channelId hợp lệ, thoát khỏi hàm
+  }
+
+  // Nếu không hợp lệ, tiếp tục kiểm tra các phần tử trên trang
   const selector = "a#header.yt-simple-endpoint.style-scope.ytd-video-description-infocards-section-renderer";
 
   setTimeout(() => {
@@ -58,13 +69,13 @@ function checkChannelLogic() {
       console.log(`Lần gọi checkChannel thứ ${checkChannelCount}: No element containing channel name found.`);
       document.body.innerHTML = "<h1>Content not allowed to be accessed because no valid content was found - reload to try again</h1>";
     }
-  }, 1000); // Chờ 2 giây để đảm bảo nội dung đã tải xong
+  }, 1000); // Chờ 1 giây để đảm bảo nội dung đã tải xong
 }
 
 // Sử dụng setInterval để kiểm tra URL mỗi giây
 function monitorURLChange() {
   let lastURL = location.href;
-
+  
   setInterval(() => {
     const currentURL = location.href;
     if (currentURL !== lastURL) {
@@ -72,5 +83,5 @@ function monitorURLChange() {
       console.log("Gọi checkChannel từ: URL thay đổi");
       checkChannel();  // Gọi checkChannel khi URL thay đổi
     }
-  }, 2000); // Kiểm tra URL mỗi giây
+  }, 2000); // Kiểm tra URL mỗi 2 giây
 }
