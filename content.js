@@ -4,6 +4,7 @@ let checkChannelCount = 0;
 // Lấy tên kênh cần tìm từ storage, được lưu bởi popup.js
 let allowedChannels = [];
 
+// Lấy dữ liệu từ storage
 chrome.storage.local.get("allowedChannels", (data) => {
   allowedChannels = data.allowedChannels || [];
   console.log("Gọi checkChannel từ: Lấy dữ liệu từ storage");
@@ -85,3 +86,14 @@ function monitorURLChange() {
     }
   }, 2000); // Kiểm tra URL mỗi 2 giây
 }
+
+// Lắng nghe sự kiện popstate khi thay đổi lịch sử (Back/Forward)
+window.addEventListener("popstate", function(event) {
+  console.log("Lịch sử đã thay đổi, trang có thể đã được back hoặc forward.");
+  console.log("Trang hiện tại:", location.href);
+  setTimeout(() => {
+    console.log("Lệnh thứ hai sau 2 giây");
+  }, 2000);  // Delay 2000ms (2 giây)
+  // Có thể reload hoặc thực hiện các hành động khác nếu cần
+  window.location.reload();  // Buộc reload trang từ server
+});
